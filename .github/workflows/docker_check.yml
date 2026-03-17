@@ -22,4 +22,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: build
-        run: docker build -t brunogmadeira/devops-satc:0.0.1
+        run: docker build -t brunogmadeira/devops-satc:0.0.1 .
