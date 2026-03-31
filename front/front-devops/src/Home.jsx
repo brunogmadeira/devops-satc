@@ -33,7 +33,7 @@ export default function Home() {
         <div style={styles.timerBox}>
           <h2 style={styles.time}>{time}:00</h2>
           <button style={styles.primaryButton} onClick={toggleTimer}>
-            {running ? "Pausar" : "Iniciar"}
+            {running ? "Pausar" : "Iniciar "}
           </button>
         </div>
 
