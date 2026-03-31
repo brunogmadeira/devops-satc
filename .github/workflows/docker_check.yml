@@ -25,6 +25,9 @@ jobs:
       - name: build
         run: docker build -t brunogmadeira/devops-satc:0.0.1 .
 
+      - name: Push Docker image
+        run: docker push brunogmadeira/devops-satc:0.0.1
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
