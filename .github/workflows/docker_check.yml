@@ -54,20 +54,20 @@ jobs:
           name: trivy-results.json
           path: trivy-results.json
 
-      - name: Analyze Trivy results
-        run: |
-          if [ -f trivy-results.json ]; then
-            VULN_COUNT=$(jq '[.Results[].Vulnerabilities[] | select(.Severity == "MEDIUM")] | length' trivy-results.json)
-            echo "Quantidade de vulnerabilidades mÃ©dias: $VULN_COUNT"
+      # - name: Analyze Trivy results
+      #   run: |
+      #     if [ -f trivy-results.json ]; then
+      #       VULN_COUNT=$(jq '[.Results[].Vulnerabilities[] | select(.Severity == "MEDIUM")] | length' trivy-results.json)
+      #       echo "Quantidade de vulnerabilidades mÃ©dias: $VULN_COUNT"
 
-            if [ "$VULN_COUNT" -gt 2 ]; then
-              echo "Pipeline bloqueada: mais de 2 vulnerabilidades mÃ©dias encontradas."
-              exit 1
-            fi
-          else
-            echo "Arquivo de resultados do Trivy nÃ£o encontrado."
-            exit 1
-          fi
+      #       if [ "$VULN_COUNT" -gt 2 ]; then
+      #         echo "Pipeline bloqueada: mais de 2 vulnerabilidades mÃ©dias encontradas."
+      #         exit 1
+      #       fi
+      #     else
+      #       echo "Arquivo de resultados do Trivy nÃ£o encontrado."
+      #       exit 1
+      #     fi
 
       - name: Falhar se houver mais de 2 vulnerabilidades mÃ©dias
         run: |
