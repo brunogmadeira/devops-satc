@@ -63,7 +63,7 @@ export default function Home() {
           <h2 style={styles.time}>{formatTime(time)}</h2>
 
           <button style={styles.primaryButton} onClick={toggleTimer}>
-            {running ? "Pausar" : "Iniciar"}
+            {running ? "Pausarr" : "Iniciar"}
           </button>
 
           <button style={styles.secondaryButton} onClick={resetTimer}>
