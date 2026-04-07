@@ -1,10 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState("");
-  const [time, setTime] = useState(25);
+
+  const [time, setTime] = useState(25 * 60); // agora em segundos
   const [running, setRunning] = useState(false);
+
+  // Timer
+  useEffect(() => {
+    if (!running) return;
+
+    const interval = setInterval(() => {
+      setTime((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [running]);
 
   const addTask = () => {
     if (!input.trim()) return;
@@ -24,6 +42,18 @@ export default function Home() {
     setRunning(!running);
   };
 
+  const resetTimer = () => {
+    setRunning(false);
+    setTime(25 * 60);
+  };
+
+  // formata mm:ss
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.card}>
@@ -31,9 +61,14 @@ export default function Home() {
 
         {/* Timer */}
         <div style={styles.timerBox}>
-          <h2 style={styles.time}>{time}:00</h2>
+          <h2 style={styles.time}>{formatTime(time)}</h2>
+
           <button style={styles.primaryButton} onClick={toggleTimer}>
-            {running ? "Pausar" : "Iniciar "}
+            {running ? "Pausar" : "Iniciar"}
+          </button>
+
+          <button style={styles.secondaryButton} onClick={resetTimer}>
+            Reset
           </button>
         </div>
 
@@ -117,6 +152,7 @@ const styles = {
     borderRadius: "8px",
     color: "white",
     cursor: "pointer",
+    marginRight: "10px",
   },
   secondaryButton: {
     backgroundColor: "#10b981",
