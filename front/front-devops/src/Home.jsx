@@ -4,7 +4,7 @@ export default function Home() {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState("");
 
-  const [time, setTime] = useState(25 * 60); // agora em segundos
+  const [time, setTime] = useState(25 * 60);
   const [running, setRunning] = useState(false);
 
   // Timer
@@ -47,7 +47,6 @@ export default function Home() {
     setTime(25 * 60);
   };
 
-  // formata mm:ss
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
@@ -88,16 +87,17 @@ export default function Home() {
         {/* Task List */}
         <ul style={styles.list}>
           {tasks.map((task) => (
-            <li
-              key={task.id}
-              style={{
-                ...styles.listItem,
-                textDecoration: task.done ? "line-through" : "none",
-                opacity: task.done ? 0.5 : 1,
-              }}
-              onClick={() => toggleTask(task.id)}
-            >
-              {task.text}
+            <li key={task.id} style={styles.listItem}>
+              <button
+                onClick={() => toggleTask(task.id)}
+                style={{
+                  ...styles.taskButton,
+                  textDecoration: task.done ? "line-through" : "none",
+                  opacity: task.done ? 0.5 : 1,
+                }}
+              >
+                {task.text}
+              </button>
             </li>
           ))}
         </ul>
@@ -168,10 +168,17 @@ const styles = {
     margin: 0,
   },
   listItem: {
-    padding: "10px",
     backgroundColor: "#111827",
     borderRadius: "8px",
     marginBottom: "8px",
+  },
+  taskButton: {
+    background: "none",
+    border: "none",
+    color: "white",
+    width: "100%",
+    textAlign: "left",
+    padding: "10px",
     cursor: "pointer",
   },
 };
