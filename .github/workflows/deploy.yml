@@ -43,6 +43,12 @@ jobs:
         run: |
           kubectl create namespace ${{ vars.K8S_NAMESPACE }} --dry-run=client -o yaml | kubectl apply -f -
 
+      - name: Remover recursos antigos (app-satc)
+        run: |
+          kubectl delete deployment app-satc -n ${{ vars.K8S_NAMESPACE }} --ignore-not-found
+          kubectl delete service app-satc -n ${{ vars.K8S_NAMESPACE }} --ignore-not-found
+          kubectl delete ingress app-satc -n ${{ vars.K8S_NAMESPACE }} --ignore-not-found
+
       - name: Aplicar manifests Kubernetes
         run: |
           kubectl apply -f k8s/ -n ${{ vars.K8S_NAMESPACE }}
