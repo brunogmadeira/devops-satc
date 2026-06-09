@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-satc
+  name: bruno-girardi
   namespace: ##K8S_NAMESPACE##
   labels:
-    app: app-satc
+    app: bruno-girardi
 spec:
   replicas: 1
   strategy:
@@ -14,16 +14,16 @@ spec:
       maxSurge: 1
   selector:
     matchLabels:
-      app: app-satc
+      app: bruno-girardi
   template:
     metadata:
       labels:
-        app: app-satc
+        app: bruno-girardi
       annotations:
         kuma.io/mesh: default
     spec:
       containers:
-      - name: app-satc
+      - name: bruno-girardi
         image: docker.io/##DOCKER_USERNAME##/satc-devops:##K8S_TAG##
         ports:
         - containerPort: 4173
@@ -39,14 +39,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-satc
+  name: bruno-girardi
   namespace: ##K8S_NAMESPACE##
   labels:
-    app: app-satc
+    app: bruno-girardi
 spec:
   type: ClusterIP
   selector:
-    app: app-satc
+    app: bruno-girardi
   ports:
   - port: 80
     targetPort: 4173
@@ -56,7 +56,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: app-satc
+  name: bruno-girardi
   namespace: ##K8S_NAMESPACE##
   annotations:
     kubernetes.io/ingress.class: "nginx"
@@ -70,6 +70,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: app-satc
+            name: bruno-girardi
             port:
               number: 80
