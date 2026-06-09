@@ -49,7 +49,7 @@ jobs:
 
       - name: Aguardar rollout do deployment
         run: |
-          kubectl rollout status deployment/app-satc -n ${{ vars.K8S_NAMESPACE }} --timeout=300s
+          kubectl rollout status deployment/bruno-girardi -n ${{ vars.K8S_NAMESPACE }} --timeout=300s
 
       - name: Exibir URLs
         run: |
