@@ -26,7 +26,7 @@ spec:
       - name: bruno-girardi
         image: docker.io/##DOCKER_USERNAME##/satc-devops:##K8S_TAG##
         ports:
-        - containerPort: 4173
+        - containerPort: 5173
           name: http
         resources:
           requests:
@@ -49,7 +49,7 @@ spec:
     app: bruno-girardi
   ports:
   - port: 80
-    targetPort: 4173
+    targetPort: 5173
     name: http
     protocol: TCP
 ---
